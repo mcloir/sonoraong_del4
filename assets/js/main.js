@@ -2,10 +2,33 @@
   APP SONORA MISSÃO MUSICAL - MAIN.JS
 =============================================*/
 
-// Espera o DOM carregar para executar o script
 document.addEventListener("DOMContentLoaded", () => {
   /*=============================================
-    1. COMPONENTES (Ex: Menu Hambúrguer)
+    1. GERENCIADOR DE TEMA (Acessibilidade)
+  =============================================*/
+  const initThemeToggle = () => {
+    const themeToggle = document.getElementById("theme-toggle");
+    const currentTheme = localStorage.getItem("theme") || "dark";
+
+    document.body.setAttribute("data-theme", currentTheme);
+    themeToggle.innerText = currentTheme === "dark" ? "☀️" : "🌙";
+
+    themeToggle.addEventListener("click", () => {
+      let theme = document.body.getAttribute("data-theme");
+      if (theme === "dark") {
+        theme = "light";
+        themeToggle.innerText = "🌙";
+      } else {
+        theme = "dark";
+        themeToggle.innerText = "☀️";
+      }
+      document.body.setAttribute("data-theme", theme);
+      localStorage.setItem("theme", theme);
+    });
+  };
+
+  /*=============================================
+    2. COMPONENTES (Menu Hambúrguer)
   =============================================*/
   const initMobileMenu = () => {
     const menuToggle = document.getElementById("menu-toggle");
@@ -13,20 +36,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (menuToggle && mobileNav) {
       menuToggle.addEventListener("click", () => {
-        menuToggle.classList.toggle("is-active");
+        const isActive = menuToggle.classList.toggle("is-active");
         mobileNav.classList.toggle("is-active");
+        // ARIA para leitores de tela
+        menuToggle.setAttribute("aria-expanded", String(isActive));
       });
     }
   };
 
   /*=============================================
-    2. SISTEMA DE TEMPLATES (Conteúdo das Páginas)
+    3. SISTEMA DE TEMPLATES (Acessibilidade)
   =============================================*/
   const templates = {
     // Template da Página Inicial
     home: `
       <section id="hero" class="container">
-        <h2>Música, Futuro e Oportunidade</h2>
+        <h2 tabindex="-1">Música, Futuro e Oportunidade</h2>
         <p>
           Ensinamos música para crianças e adolescentes em situação de
           vulnerabilidade na Paraíba, oferecendo um caminho de expressão,
@@ -82,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
     projetos: `
       <main class="container">
         <section id="nossos-projetos">
-          <h2 style="text-align: center; margin-bottom: var(--space-xl)">
+          <h2 tabindex="-1" style="text-align: center; margin-bottom: var(--space-xl)">
             Nossos Projetos Sociais
           </h2>
           <div class="row">
@@ -177,7 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="container">
         <div class="row">
           <div class="col-lg-8" style="grid-column: 3 / span 8; margin: 0 auto">
-            <h1 style="text-align: center">Junte-se a Nós!</h1>
+            <h1 tabindex="-1" style="text-align: center">Junte-se a Nós!</h1>
             <p style="text-align: center">
               Preencha o formulário abaixo para se cadastrar como voluntário ou
               apoiador. Entraremos em contato em breve.
@@ -187,12 +212,12 @@ document.addEventListener("DOMContentLoaded", () => {
               <fieldset>
                 <legend>Seus Dados Pessoais</legend>
 
-                <div id="form-status-message"></div>
+                <div id="form-status-message" role="alert"></div>
 
                 <div class="form-group">
                   <label for="nome">Nome Completo:</label>
-                  <input type="text" id="nome" name="nome_completo" required />
-                  <p class="form-error-message" id="error-nome"></p>
+                  <input type="text" id="nome" name="nome_completo" required aria-invalid="false" />
+                  <p class="form-error-message" id="error-nome" role="alert"></p>
                 </div>
 
                 <div class="form-group">
@@ -203,8 +228,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     name="email"
                     required
                     placeholder="seu.email@exemplo.com"
+                    aria-invalid="false"
                   />
-                  <p class="form-error-message" id="error-email"></p>
+                  <p class="form-error-message" id="error-email" role="alert"></p>
                 </div>
 
                 <div class="row">
@@ -216,8 +242,9 @@ document.addEventListener("DOMContentLoaded", () => {
                       name="cpf"
                       required
                       placeholder="000.000.000-00"
+                      aria-invalid="false"
                     />
-                    <p class="form-error-message" id="error-cpf"></p>
+                    <p class="form-error-message" id="error-cpf" role="alert"></p>
                   </div>
                   <div class="col-md-6 form-group">
                     <label for="telefone">Telefone (com DDD):</label>
@@ -227,8 +254,9 @@ document.addEventListener("DOMContentLoaded", () => {
                       name="telefone"
                       required
                       placeholder="(00) 00000-0000"
+                      aria-invalid="false"
                     />
-                    <p class="form-error-message" id="error-telefone"></p>
+                    <p class="form-error-message" id="error-telefone" role="alert"></p>
                   </div>
                 </div>
                 
@@ -239,11 +267,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     id="nascimento"
                     name="data_nascimento"
                     required
+                    aria-invalid="false"
                   />
-                  <p class="form-error-message" id="error-nascimento"></p>
+                  <p class="form-error-message" id="error-nascimento" role="alert"></p>
                 </div>
               </fieldset>
-
+              
               <fieldset>
                 <legend>Seu Endereço</legend>
                 <div class="row">
@@ -255,24 +284,25 @@ document.addEventListener("DOMContentLoaded", () => {
                       name="cep"
                       required
                       placeholder="00000-000"
+                      aria-invalid="false"
                     />
-                    <p class="form-error-message" id="error-cep"></p>
+                    <p class="form-error-message" id="error-cep" role="alert"></p>
                   </div>
                   <div class="col-md-8 form-group">
                     <label for="endereco">Endereço (Rua, Nº, Bairro):</label>
-                    <input type="text" id="endereco" name="endereco" required />
-                    <p class="form-error-message" id="error-endereco"></p>
+                    <input type="text" id="endereco" name="endereco" required aria-invalid="false" />
+                    <p class="form-error-message" id="error-endereco" role="alert"></p>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6 form-group">
                     <label for="cidade">Cidade:</label>
-                    <input type="text" id="cidade" name="cidade" required />
-                    <p class="form-error-message" id="error-cidade"></p>
+                    <input type="text" id="cidade" name="cidade" required aria-invalid="false" />
+                    <p class="form-error-message" id="error-cidade" role="alert"></p>
                   </div>
                   <div class="col-md-6 form-group">
                     <label for="estado">Estado:</label>
-                    <select id="estado" name="estado" required>
+                    <select id="estado" name="estado" required aria-invalid="false">
                       <option value="">Selecione...</option>
                       <option value="AC">Acre</option>
                       <option value="AL">Alagoas</option>
@@ -302,7 +332,7 @@ document.addEventListener("DOMContentLoaded", () => {
                       <option value="SE">Sergipe</option>
                       <option value="TO">Tocantins</option>
                     </select>
-                    <p class="form-error-message" id="error-estado"></p>
+                    <p class="form-error-message" id="error-estado" role="alert"></p>
                   </div>
                 </div>
               </fieldset>
@@ -317,141 +347,129 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   /*=============================================
-    3. VALIDAÇÃO AVANÇADA DE FORMULÁRIO
+    4. VALIDAÇÃO AVANÇADA DE FORMULÁRIO (Acessibilidade)
   =============================================*/
-
-  // Função de consistência de dados para CPF (Algoritmo real)
   const validaCPF = (cpf) => {
-    cpf = String(cpf).replace(/[^\d]+/g, ""); // Remove caracteres não numéricos
+    // (Função idêntica à anterior, omitida por brevidade)
+    cpf = String(cpf).replace(/[^\d]+/g, "");
     if (cpf.length !== 11) return false;
-    if (/^(\d)\1+$/.test(cpf)) return false; // Verifica se todos os dígitos são iguais
-
-    let soma = 0;
-    let resto;
-
+    if (/^(\d)\1+$/.test(cpf)) return false;
+    let soma = 0,
+      resto;
     for (let i = 1; i <= 9; i++)
       soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
     resto = (soma * 10) % 11;
     if (resto === 10 || resto === 11) resto = 0;
     if (resto !== parseInt(cpf.substring(9, 10))) return false;
-
     soma = 0;
     for (let i = 1; i <= 10; i++)
       soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
     resto = (soma * 10) % 11;
     if (resto === 10 || resto === 11) resto = 0;
     if (resto !== parseInt(cpf.substring(10, 11))) return false;
-
-    return true; // CPF válido
+    return true;
   };
-
-  // Função para validar email
   const validaEmail = (email) => {
+    // (Função idêntica)
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(String(email).toLowerCase());
   };
 
-  // Função para exibir/limpar erros
-  const setErro = (id, mensagem) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.innerText = mensagem;
-      el.style.display = mensagem ? "block" : "none";
+  // Função para exibir/limpar erros (Atualizada com ARIA)
+  const setErro = (inputId, mensagem) => {
+    const errorEl = document.getElementById(`error-${inputId}`);
+    const inputEl = document.getElementById(inputId);
+
+    if (errorEl) {
+      errorEl.innerText = mensagem;
+      errorEl.style.display = mensagem ? "block" : "none";
+    }
+    if (inputEl) {
+      inputEl.setAttribute("aria-invalid", mensagem ? "true" : "false");
+      if (mensagem) {
+        inputEl.setAttribute("aria-describedby", `error-${inputId}`);
+      } else {
+        inputEl.removeAttribute("aria-describedby");
+      }
     }
   };
 
-  // Função principal que "liga" a validação na página de cadastro
+  // Função principal que "liga" a validação
   const initCadastroForm = () => {
     const form = document.getElementById("cadastro-form");
-    if (!form) return; // Só executa se o formulário existir na página
+    if (!form) return;
 
     form.addEventListener("submit", (event) => {
-      event.preventDefault(); // Impede o envio tradicional
-      let isValid = true; // Flag de validação
+      event.preventDefault();
+      let isValid = true;
 
-      // Seleciona campos
-      const nome = document.getElementById("nome");
-      const email = document.getElementById("email");
-      const cpf = document.getElementById("cpf");
-      const telefone = document.getElementById("telefone");
-      const nascimento = document.getElementById("nascimento");
+      // Mapeamento dos campos para validação
+      const fieldsToValidate = [
+        {
+          id: "nome",
+          test: (v) => v.trim().length >= 3,
+          msg: "Nome deve ter no mínimo 3 caracteres.",
+        },
+        {
+          id: "email",
+          test: (v) => validaEmail(v),
+          msg: "Por favor, insira um e-mail válido.",
+        },
+        {
+          id: "cpf",
+          test: (v) => validaCPF(v),
+          msg: "Este CPF é inválido. Verifique os dígitos.",
+        },
+        {
+          id: "telefone",
+          test: (v) => v.replace(/[^\d]+/g, "").length >= 10,
+          msg: "Telefone inválido. Inclua o DDD.",
+        },
+        {
+          id: "nascimento",
+          test: (v) => v !== "",
+          msg: "Data de nascimento é obrigatória.",
+        },
+        {
+          id: "cep",
+          test: (v) => v.replace(/[^\d]+/g, "").length === 8,
+          msg: "CEP inválido. Deve conter 8 dígitos.",
+        },
+        {
+          id: "endereco",
+          test: (v) => v.trim() !== "",
+          msg: "Endereço é obrigatório.",
+        },
+        {
+          id: "cidade",
+          test: (v) => v.trim() !== "",
+          msg: "Cidade é obrigatória.",
+        },
+        { id: "estado", test: (v) => v !== "", msg: "Selecione um estado." },
+      ];
+
       const statusMessage = document.getElementById("form-status-message");
 
-      // *** NOVOS CAMPOS DE ENDEREÇO ***
-      const cep = document.getElementById("cep");
-      const endereco = document.getElementById("endereco");
-      const cidade = document.getElementById("cidade");
-      const estado = document.getElementById("estado");
-
       // Limpa erros antigos
-      setErro("error-nome", "");
-      setErro("error-email", "");
-      setErro("error-cpf", "");
-      setErro("error-telefone", "");
-      setErro("error-nascimento", "");
+      fieldsToValidate.forEach((field) => setErro(field.id, ""));
       statusMessage.className = "";
       statusMessage.innerText = "";
 
-      // *** NOVOS ERROS DE ENDEREÇO LIMPOS ***
-      setErro("error-cep", "");
-      setErro("error-endereco", "");
-      setErro("error-cidade", "");
-      setErro("error-estado", "");
-
-      // 1. Valida Nome
-      if (nome.value.trim().length < 3) {
-        setErro("error-nome", "Nome deve ter no mínimo 3 caracteres.");
-        isValid = false;
-      }
-
-      // 2. Valida Email
-      if (!validaEmail(email.value)) {
-        setErro("error-email", "Por favor, insira um e-mail válido.");
-        isValid = false;
-      }
-
-      // 3. Valida CPF (Consistência de Dados)
-      if (!validaCPF(cpf.value)) {
-        setErro("error-cpf", "Este CPF é inválido. Verifique os dígitos.");
-        isValid = false;
-      }
-
-      // 4. Valida Telefone (Exemplo simples)
-      if (telefone.value.replace(/[^\d]+/g, "").length < 10) {
-        setErro("error-telefone", "Telefone inválido. Inclua o DDD.");
-        isValid = false;
-      }
-
-      // 5. Valida Nascimento
-      if (nascimento.value === "") {
-        setErro("error-nascimento", "Data de nascimento é obrigatória.");
-        isValid = false;
-      }
-
-      // *** // 6. VALIDAÇÃO DE ENDEREÇO
-      // ***
-      if (cep.value.replace(/[^\d]+/g, "").length !== 8) {
-        setErro("error-cep", "CEP inválido. Deve conter 8 dígitos.");
-        isValid = false;
-      }
-      if (endereco.value.trim() === "") {
-        setErro("error-endereco", "Endereço é obrigatório.");
-        isValid = false;
-      }
-      if (cidade.value.trim() === "") {
-        setErro("error-cidade", "Cidade é obrigatória.");
-        isValid = false;
-      }
-      if (estado.value === "") {
-        setErro("error-estado", "Selecione um estado.");
-        isValid = false;
-      }
+      // Valida cada campo
+      fieldsToValidate.forEach((field) => {
+        const input = document.getElementById(field.id);
+        if (!field.test(input.value)) {
+          setErro(field.id, field.msg);
+          isValid = false;
+        }
+      });
 
       // Feedback Final
       if (isValid) {
         statusMessage.className = "success";
         statusMessage.innerText = "Cadastro enviado com sucesso! Obrigado.";
-        form.reset(); // Limpa o formulário
+        form.reset();
+        fieldsToValidate.forEach((field) => setErro(field.id, "")); // Limpa ARIA
       } else {
         statusMessage.className = "error";
         statusMessage.innerText =
@@ -461,18 +479,18 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   /*=============================================
-    4. ROTEADOR (SPA)
+    5. ROTEADOR (SPA) (Acessibilidade)
   =============================================*/
   const appRoot = document.getElementById("app-root");
-  const navLinks = document.querySelectorAll(".nav-link");
 
   // Função que carrega o conteúdo da página
   const loadContent = (route) => {
-    // Carrega o template correspondente. Se não achar, carrega 'home'.
     appRoot.innerHTML = templates[route] || templates.home;
+    document.documentElement.scrollTop = 0; // Rola para o topo
 
     // Atualiza a classe 'active' nos links de navegação
-    navLinks.forEach((link) => {
+    const allNavLinks = document.querySelectorAll(".nav-link");
+    allNavLinks.forEach((link) => {
       if (link.dataset.route === route) {
         link.classList.add("active");
       } else {
@@ -487,30 +505,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Recarrega os links de navegação internos da página
     initNavLinks(appRoot);
+
+    // ** FOCO DO LEITOR DE TELA **
+    // Move o foco para o novo título principal da página
+    const newHeading = appRoot.querySelector("h1, h2");
+    if (newHeading) {
+      newHeading.focus();
+    }
   };
 
   // Função que "liga" os cliques nos links de navegação
   const initNavLinks = (container) => {
     const links = container.querySelectorAll(".nav-link");
     links.forEach((link) => {
-      // Evita adicionar múltiplos listeners ao mesmo link
       if (link.dataset.listenerAttached) return;
 
       link.addEventListener("click", (event) => {
-        event.preventDefault(); // Previne o recarregamento da página
+        event.preventDefault();
         const route = link.dataset.route;
 
-        // Atualiza a URL na barra do navegador
         history.pushState({ route }, null, `/${route === "home" ? "" : route}`);
-
-        // Carrega o novo conteúdo
         loadContent(route);
 
         // Fecha o menu mobile se estiver aberto
-        document.getElementById("menu-toggle").classList.remove("is-active");
+        const menuToggle = document.getElementById("menu-toggle");
         document.getElementById("mobile-nav").classList.remove("is-active");
+        menuToggle.classList.remove("is-active");
+        menuToggle.setAttribute("aria-expanded", "false"); // ARIA
       });
-      link.dataset.listenerAttached = true; // Marca o link como "ligado"
+      link.dataset.listenerAttached = true;
     });
   };
 
@@ -524,6 +547,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const initApp = () => {
     // "Liga" o menu hambúrguer
     initMobileMenu();
+    // "Liga" o botão de tema
+    initThemeToggle();
 
     // "Liga" os links de navegação do header
     initNavLinks(document.querySelector(".main-header"));
@@ -531,7 +556,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Carrega a página inicial baseada na URL atual
     let currentRoute = window.location.pathname.replace("/", "") || "home";
     if (!templates[currentRoute]) {
-      currentRoute = "home"; // ou uma página 404
+      currentRoute = "home";
     }
     history.replaceState(
       { route: currentRoute },
