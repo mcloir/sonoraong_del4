@@ -73,8 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
           <div class="col-md-6">
             <img
-              src="/assets/images/missao-imagem.jpg"
-              alt="Crianças aprendendo música"
+              src="assets/images/missao-imagem.jpg" alt="Crianças aprendendo música"
               style="border-radius: var(--border-radius)"
             />
           </div>
@@ -116,12 +115,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="card-image">
                   <picture>
                     <source
-                      srcset="assets/images/pifanosezabumba.webp"
-                      type="image/webp"
+                      srcset="assets/images/pifanosezabumba.webp" type="image/webp"
                     />
                     <img
-                      src="assets/images/pifanosezabumba.jpg"
-                      alt="Alunos tocando pífanos e zabumbas"
+                      src="assets/images/pifanosezabumba.jpg" alt="Alunos tocando pífanos e zabumbas"
                     />
                   </picture>
                 </div>
@@ -144,10 +141,8 @@ document.addEventListener("DOMContentLoaded", () => {
               <article class="card">
                 <div class="card-image">
                   <picture>
-                    <source srcset="assets/images/rock.webp" type="image/webp" />
-                    <img
-                      src="assets/images/rock.jpg"
-                      alt="Banda de rock de jovens"
+                    <source srcset="assets/images/rock.webp" type="image/webp" /> <img
+                      src="assets/images/rock.jpg" alt="Banda de rock de jovens"
                     />
                   </picture>
                 </div>
@@ -170,12 +165,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="card-image">
                   <picture>
                     <source
-                      srcset="assets/images/camerata.webp"
-                      type="image/webp"
+                      srcset="assets/images/camerata.webp" type="image/webp"
                     />
                     <img
-                      src="assets/images/camerata.jpg"
-                      alt="Crianças em aula de violino"
+                      src="assets/images/camerata.jpg" alt="Crianças em aula de violino"
                     />
                   </picture>
                 </div>
@@ -554,14 +547,41 @@ document.addEventListener("DOMContentLoaded", () => {
     initNavLinks(document.querySelector(".main-header"));
 
     // Carrega a página inicial baseada na URL atual
-    let currentRoute = window.location.pathname.replace("/", "") || "home";
+    // CORRIGIDO: Normaliza o caminho para lidar com o subdiretório do GitHub Pages
+    let path = window.location.pathname;
+
+    // Encontra o nome do repositório (ex: /sonoraong_del4/)
+    // Se o path for "/sonoraong_del4/" ou "/sonoraong_del4/index.html", o app deve tratar como "home"
+    // Se for "/sonoraong_del4/projetos", deve tratar como "projetos"
+
+    // Remove a base do repositório do caminho
+    // Esta é uma forma simples; para repositórios com nomes complexos, pode precisar de ajuste
+    let baseRepo = path.substring(0, path.lastIndexOf("/"));
+    if (path.split("/").length > 2) {
+      // Verifica se está em um subdiretório
+      let pathSegments = path.split("/");
+      // O nome da rota será o último segmento
+      currentRoute = pathSegments[pathSegments.length - 1] || "home";
+
+      // Se a URL for só /sonoraong_del4/, o último segmento é ""
+      if (currentRoute === "index.html") currentRoute = "home";
+
+      // Remove o nome do repositório do history.pushState
+      baseRepo = "/" + pathSegments[1];
+    } else {
+      currentRoute = path.replace("/", "") || "home";
+      baseRepo = "";
+    }
+
     if (!templates[currentRoute]) {
       currentRoute = "home";
     }
+
+    // Atualiza a URL sem recarregar
     history.replaceState(
       { route: currentRoute },
       null,
-      `/${currentRoute === "home" ? "" : currentRoute}`
+      `${baseRepo}/${currentRoute === "home" ? "" : currentRoute}`
     );
     loadContent(currentRoute);
   };

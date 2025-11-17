@@ -25,12 +25,12 @@
   --font-family-base: "Roboto", sans-serif;
   --font-family-headings: "Montserrat", sans-serif;
 
-  --font-size-xs: 0.75rem;
-  --font-size-sm: 0.875rem;
-  --font-size-md: 1rem;
-  --font-size-lg: 1.5rem;
-  --font-size-xl: 2.25rem;
-  --font-size-xxl: 3rem;
+  --font-size-xs: 0.75rem; /* 8px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-md: 1rem; /* 16px */
+  --font-size-lg: 1.5rem; /* 24px */
+  --font-size-xl: 2.25rem; /* 36px */
+  --font-size-xxl: 3rem; /* 48px */
 
   --font-weight-light: 300;
   --font-weight-regular: 400;
@@ -107,7 +107,6 @@ h6 {
   color: var(--color-primary-gold);
 }
 
-/* ... (Hierarquia h1, h2, h3, p, a... tudo igual) ... */
 p {
   margin-bottom: var(--space-md);
 }
@@ -153,8 +152,6 @@ ul {
 .skip-link:focus {
   left: 0;
 }
-
-/* ... (O restante de LEIAUTE (3) e BREAKPOINTS (4) é IDÊNTICO) ... */
 
 /*=============================================
   3. LEIAUTE (GRID E FLEXBOX)
@@ -278,7 +275,6 @@ ul {
   color: var(--color-primary-gold);
 }
 
-/* ... (main-nav, dropdown-menu, menu-toggle... tudo igual) ... */
 .main-nav {
   display: none;
 }
@@ -449,7 +445,6 @@ li.dropdown:hover .dropdown-menu {
   border-color: var(--color-primary-gold);
 }
 
-/* ... (Estados :hover, :focus, :active, :disabled são IDÊNTICOS) ... */
 .btn:hover {
   text-decoration: none;
   transform: scale(1.05);
@@ -620,13 +615,15 @@ legend {
 #hero {
   text-align: center;
   padding: var(--space-xxl) 0;
+  /* 🚀 CORRIGIDO: Caminho relativo ao CSS (../) e nome da imagem de fundo */
+  /* Se a imagem dos "kids" (Imagem 2) for a correta, troque o nome aqui */
   background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url("../images/hero-background.jpg") no-repeat center center/cover;
+    url("../images/missao-imagem.jpg") no-repeat center center/cover;
   border-radius: var(--border-radius);
 }
 [data-theme="light"] #hero {
-  /* No modo claro, remove o gradiente escuro para a imagem ficar mais visível */
-  background: url("../images/hero-background.jpg") no-repeat center center/cover;
+  /* 🚀 CORRIGIDO: Caminho relativo ao CSS (../) */
+  background: url("../images/missao-imagem.jpg") no-repeat center center/cover;
 }
 
 #hero h2 {
