@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
+    <a href="#app-root" class="skip-link">Pular para o Conteúdo</a>
+
     <header class="main-header">
       <div class="container">
         <a href="/" class="header-logo-container nav-link" data-route="home">
@@ -31,19 +33,24 @@
               class="logo"
             />
           </picture>
-          <h1>Sonora Missão Musical</h1>
+          <span>Sonora Missão Musical</span>
         </a>
 
-        <nav class="main-nav">
+        <nav class="main-nav" aria-label="Navegação Principal">
           <ul>
             <li>
               <a href="/" class="nav-link active" data-route="home">Início</a>
             </li>
             <li class="dropdown">
-              <a href="/projetos" class="nav-link" data-route="projetos"
+              <a
+                href="/projetos"
+                class="nav-link"
+                data-route="projetos"
+                aria-haspopup="true"
+                aria-expanded="false"
                 >Projetos</a
               >
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu" aria-label="Submenu Projetos">
                 <li><a href="#pifanos">Pífanos e Percussão</a></li>
                 <li><a href="#rock">Acordes do Rock</a></li>
                 <li><a href="#classica">Camerata Clássica</a></li>
@@ -75,15 +82,29 @@
           </ul>
         </nav>
 
-        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu">
+        <button
+          id="theme-toggle"
+          class="btn-theme"
+          aria-label="Alternar modo de contraste"
+        >
+          ☀️
+        </button>
+
+        <button
+          class="menu-toggle"
+          id="menu-toggle"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+          aria-controls="mobile-nav"
+        >
           <span class="hamburger-icon"></span>
         </button>
       </div>
     </header>
 
-    <main id="app-root"></main>
+    <main id="app-root" role="main"></main>
 
-    <footer class="main-footer">
+    <footer class="main-footer" role="contentinfo">
       <div class="container">
         <p>&copy; 2025 Sonora Missão Musical. Todos os direitos reservados.</p>
       </div>
