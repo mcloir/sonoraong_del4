@@ -1,0 +1,677 @@
+/*=============================================
+  SONORA MISSÃO MUSICAL - DESIGN SYSTEM
+=============================================*/
+
+/* 1. VARIÁVEIS (CUSTOM PROPERTIES) */
+:root {
+  /* 1.1. Paleta de Cores (Como solicitado) */
+  --color-primary-gold: #e8a240;
+  --color-tertiary-earth: #93452b;
+  --color-accent-sunset: #f57e1e;
+  --color-accent-blue: #20b0be;
+  --color-accent-pink: #d43a7c;
+  --color-secondary-sand: #c78759;
+  --color-light-highlight: #fbe3b8;
+  --color-background-black: #0d0d0d;
+  --color-text-light: #f0f0f0;
+  --color-text-dark: #1a1a1a;
+  --color-success: #28a745;
+  --color-error: #dc3545;
+
+  /* 1.2. Tipografia Hierárquica */
+  --font-family-base: "Roboto", sans-serif; /* Fallback */
+  --font-family-headings: "Montserrat", sans-serif; /* Fallback */
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.5rem;
+  --font-size-xl: 2.25rem;
+  --font-size-xxl: 3rem;
+
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-bold: 700;
+
+  /* 1.3. Sistema de Espaçamento Modular (Base 8px) */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-xxl: 4rem;
+
+  /* 1.4. Outros */
+  --border-radius: 8px;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --transition-fast: all 0.2s ease-in-out;
+}
+
+/* 2. RESET GLOBAL E ESTILOS BASE */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.6;
+  background-color: var(--color-background-black);
+  color: var(--color-text-light);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-headings);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  margin-bottom: var(--space-sm);
+  color: var(--color-primary-gold);
+}
+
+/* Hierarquia de Títulos */
+h1 {
+  font-size: var(--font-size-xxl);
+}
+h2 {
+  font-size: var(--font-size-xl);
+}
+h3 {
+  font-size: var(--font-size-lg);
+}
+
+p {
+  margin-bottom: var(--space-md);
+}
+
+a {
+  color: var(--color-accent-blue);
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-light-highlight);
+  text-decoration: underline;
+}
+
+img,
+picture {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+ul {
+  list-style: none;
+}
+
+/*=============================================
+  3. LEIAUTE (GRID E FLEXBOX)
+=============================================*/
+
+/* Container Principal */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: var(--space-lg) 0;
+}
+
+/* Sistema de Grid de 12 Colunas (CSS Grid) */
+.row {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-md);
+}
+
+/* Classes de Coluna (Mobile-first) */
+.col-12 {
+  grid-column: span 12;
+}
+.col-8 {
+  grid-column: span 12;
+}
+.col-6 {
+  grid-column: span 12;
+}
+.col-4 {
+  grid-column: span 12;
+}
+.col-3 {
+  grid-column: span 12;
+}
+
+/*=============================================
+  4. BREAKPOINTS RESPONSIVOS (5 Breakpoints)
+=============================================*/
+
+/* Breakpoint 1: Small (sm) - 576px */
+@media (min-width: 576px) {
+  .col-sm-6 {
+    grid-column: span 6;
+  }
+}
+
+/* Breakpoint 2: Medium (md) - 768px */
+@media (min-width: 768px) {
+  h1 {
+    font-size: var(--font-size-xxl);
+  }
+  .col-md-4 {
+    grid-column: span 4;
+  }
+  .col-md-6 {
+    grid-column: span 6;
+  }
+  .col-md-8 {
+    grid-column: span 8;
+  }
+}
+
+/* Breakpoint 3: Large (lg) - 992px */
+@media (min-width: 992px) {
+  .col-lg-3 {
+    grid-column: span 3;
+  }
+  .col-lg-4 {
+    grid-column: span 4;
+  }
+  .col-lg-6 {
+    grid-column: span 6;
+  }
+}
+
+/* Breakpoint 4: Extra Large (xl) - 1200px */
+@media (min-width: 1200px) {
+}
+
+/* Breakpoint 5: Extra Extra Large (xxl) - 1400px */
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+}
+
+/*=============================================
+  5. HEADER E NAVEGAÇÃO
+=============================================*/
+.main-header {
+  background-color: rgba(13, 13, 13, 0.8);
+  backdrop-filter: blur(10px);
+  padding: var(--space-sm) 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--color-tertiary-earth);
+}
+
+.main-header .container {
+  display: flex; /* Flexbox para componentes internos */
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--space-md); /* Ajusta o padding do container no header */
+}
+
+.header-logo-container {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.header-logo-container .logo {
+  height: 60px;
+  width: auto;
+  transition: var(--transition-fast);
+}
+
+.header-logo-container .logo:hover {
+  transform: rotate(-8deg) scale(1.1);
+}
+
+.header-logo-container h1 {
+  font-size: var(--font-size-lg);
+  margin: 0;
+}
+
+/* 5.1. Navegação Desktop */
+.main-nav {
+  display: none;
+}
+
+.main-nav ul {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.main-nav li {
+  position: relative;
+}
+
+.main-nav a {
+  color: var(--color-text-light);
+  font-weight: var(--font-weight-bold);
+  padding: var(--space-xs) 0;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+  color: var(--color-primary-gold);
+  border-bottom-color: var(--color-primary-gold);
+}
+
+/* 5.2. Dropdown Submenu */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--color-background-black);
+  border: 1px solid var(--color-tertiary-earth);
+  border-radius: var(--border-radius);
+  padding: var(--space-sm);
+  min-width: 200px;
+  box-shadow: var(--box-shadow);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+li.dropdown:hover .dropdown-menu {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dropdown-menu li {
+  margin-bottom: var(--space-xs);
+}
+
+.dropdown-menu a {
+  border-bottom: none;
+  width: 100%;
+  display: block;
+  padding: var(--space-xs);
+}
+
+.dropdown-menu a:hover {
+  background-color: var(--color-tertiary-earth);
+  border-radius: var(--border-radius);
+}
+
+/* 5.3. Menu Hambrguer (Mobile) */
+.menu-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: block;
+}
+
+.menu-toggle .hamburger-icon {
+  width: 30px;
+  height: 3px;
+  background-color: var(--color-text-light);
+  display: block;
+  position: relative;
+  transition: var(--transition-fast);
+}
+
+.menu-toggle .hamburger-icon::before,
+.menu-toggle .hamburger-icon::after {
+  content: "";
+  width: 100%;
+  height: 3px;
+  background-color: var(--color-text-light);
+  position: absolute;
+  left: 0;
+  transition: var(--transition-fast);
+}
+
+.menu-toggle .hamburger-icon::before {
+  top: -8px;
+}
+
+.menu-toggle .hamburger-icon::after {
+  bottom: -8px;
+}
+
+/* Animação do Hambúrguer (quando .is-active) */
+.menu-toggle.is-active .hamburger-icon {
+  background-color: transparent;
+}
+.menu-toggle.is-active .hamburger-icon::before {
+  transform: rotate(45deg) translate(5px, 6px);
+}
+.menu-toggle.is-active .hamburger-icon::after {
+  transform: rotate(-45deg) translate(5px, -6px);
+}
+
+/* 5.4. Navegação Mobile (quando .is-active) */
+.mobile-nav {
+  position: fixed;
+  top: 85px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 85px);
+  background-color: var(--color-background-black);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-xl);
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 999;
+}
+
+.mobile-nav.is-active {
+  transform: translateX(0);
+}
+
+.mobile-nav ul {
+  flex-direction: column;
+  gap: var(--space-lg);
+  text-align: center;
+}
+
+.mobile-nav a {
+  font-size: var(--font-size-lg);
+}
+
+/* 5.5. Breakpoint de troca: Desktop Nav */
+@media (min-width: 992px) {
+  .menu-toggle {
+    display: none;
+  }
+  .main-nav {
+    display: block;
+  }
+  .mobile-nav {
+    display: none;
+  }
+}
+
+/*=============================================
+  6. COMPONENTES
+=============================================*/
+
+/* 6.1. Botões (com todos os estados) */
+.btn {
+  display: inline-block;
+  font-family: var(--font-family-headings);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-md);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  padding: var(--space-sm) var(--space-lg);
+  border: 2px solid transparent;
+  border-radius: var(--border-radius);
+  transition: var(--transition-fast), transform 0.1s ease;
+}
+
+.btn-primary {
+  background-color: var(--color-primary-gold);
+  color: var(--color-background-black);
+  border-color: var(--color-primary-gold);
+}
+
+/* Estados do Botão */
+.btn:hover {
+  text-decoration: none;
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+.btn:focus {
+  outline: 4px solid var(--color-accent-blue);
+  outline-offset: 2px;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn:disabled {
+  background-color: var(--color-secondary-sand);
+  border-color: var(--color-secondary-sand);
+  color: var(--color-tertiary-earth);
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* 6.2. Cards (para página de Projetos) */
+.card {
+  background-color: #1a1a1a;
+  border: 1px solid var(--color-tertiary-earth);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: var(--transition-fast), transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(232, 162, 64, 0.2);
+}
+
+.card-image img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-body .card-title {
+  color: var(--color-primary-gold);
+  margin-bottom: var(--space-sm);
+}
+
+.card-body p {
+  flex-grow: 1;
+  margin-bottom: var(--space-md);
+}
+
+.card-tags {
+  margin-bottom: var(--space-md);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+/* 6.3. Badges e Tags */
+.badge {
+  display: inline-block;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  padding: var(--space-xs);
+  border-radius: var(--border-radius);
+  text-transform: uppercase;
+}
+
+.badge-blue {
+  background-color: var(--color-accent-blue);
+  color: var(--color-background-black);
+}
+.badge-pink {
+  background-color: var(--color-accent-pink);
+  color: var(--color-text-light);
+}
+.badge-sand {
+  background-color: var(--color-secondary-sand);
+  color: var(--color-background-black);
+}
+
+/* 6.4. Formulários (Página de Cadastro) */
+.form-group {
+  margin-bottom: var(--space-md);
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-xs);
+  color: var(--color-light-highlight);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group input[type="date"],
+.form-group select {
+  width: 100%;
+  padding: var(--space-sm);
+  background-color: #2a2a2a;
+  border: 2px solid var(--color-tertiary-earth);
+  border-radius: var(--border-radius);
+  color: var(--color-text-light);
+  font-size: var(--font-size-md);
+  transition: var(--transition-fast);
+}
+
+.form-group input::placeholder {
+  color: var(--color-secondary-sand);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--color-primary-gold);
+  box-shadow: 0 0 0 4px rgba(232, 162, 64, 0.3);
+}
+
+/* Validação Visual de Formulário */
+.form-group input:required:invalid:not(:placeholder-shown) {
+  border-color: var(--color-error);
+}
+
+.form-group input:required:valid {
+  border-color: var(--color-success);
+}
+
+fieldset {
+  border: 2px solid var(--color-tertiary-earth);
+  border-radius: var(--border-radius);
+  padding: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+legend {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary-gold);
+  padding: 0 var(--space-sm);
+}
+
+/*=============================================
+  7. ESTILOS DE PÁGINAS ESPECÍFICAS
+=============================================*/
+
+/* 7.1. Página Inicial (index.html) */
+#hero {
+  text-align: center;
+  padding: var(--space-xxl) 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("../images/hero-background.jpg") no-repeat center center/cover;
+  border-radius: var(--border-radius);
+}
+
+#hero h2 {
+  font-size: 3.5rem;
+  color: var(--color-light-highlight);
+}
+
+#hero p {
+  font-size: var(--font-size-lg);
+  max-width: 700px;
+  margin: var(--space-md) auto var(--space-lg) auto;
+}
+
+#sobre,
+#contato {
+  padding: var(--space-xl) 0;
+}
+
+/* 7.2. Página Projetos */
+#nossos-projetos h2 {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+/*=============================================
+  8. FOOTER
+=============================================*/
+.main-footer {
+  border-top: 1px solid var(--color-tertiary-earth);
+  margin-top: var(--space-xl);
+}
+
+.main-footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  padding-top: var(--space-lg);
+  padding-bottom: var(--space-lg);
+}
+
+/*=============================================
+  9. COMPONENTES DE FEEDBACK (JS)
+=============================================*/
+
+/* Para mensagens de erro em cada campo do formulário */
+.form-error-message {
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  margin-top: var(--space-xs);
+  display: none;
+}
+
+/* Para a mensagem de status geral do formulário (sucesso/erro) */
+#form-status-message {
+  padding: var(--space-sm);
+  margin-bottom: var(--space-md);
+  border-radius: var(--border-radius);
+  display: none;
+  text-align: center;
+  font-weight: var(--font-weight-bold);
+}
+
+#form-status-message.success {
+  background-color: var(--color-success);
+  color: var(--color-text-light);
+  display: block;
+}
+
+#form-status-message.error {
+  background-color: var(--color-error);
+  color: var(--color-text-light);
+  display: block;
+}

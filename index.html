@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Sonora Missão Musical: Ensinando música e transformando vidas de crianças na Paraíba."
+    />
+    <title>Sonora Missão Musical - Transformando Vidas com Música</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="container">
+        <a href="/" class="header-logo-container nav-link" data-route="home">
+          <picture>
+            <source
+              srcset="assets/images/logosonoramm.webp"
+              type="image/webp"
+            />
+            <img
+              src="assets/images/logosonoramm.jpg"
+              alt="Logomarca Sonora Missão Musical"
+              class="logo"
+            />
+          </picture>
+          <h1>Sonora Missão Musical</h1>
+        </a>
+
+        <nav class="main-nav">
+          <ul>
+            <li>
+              <a href="/" class="nav-link active" data-route="home">Início</a>
+            </li>
+            <li class="dropdown">
+              <a href="/projetos" class="nav-link" data-route="projetos"
+                >Projetos</a
+              >
+              <ul class="dropdown-menu">
+                <li><a href="#pifanos">Pífanos e Percussão</a></li>
+                <li><a href="#rock">Acordes do Rock</a></li>
+                <li><a href="#classica">Camerata Clássica</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="/cadastro" class="nav-link" data-route="cadastro"
+                >Participe</a
+              >
+            </li>
+          </ul>
+        </nav>
+
+        <nav class="mobile-nav" id="mobile-nav">
+          <ul>
+            <li>
+              <a href="/" class="nav-link" data-route="home">Início</a>
+            </li>
+            <li>
+              <a href="/projetos" class="nav-link" data-route="projetos"
+                >Projetos</a
+              >
+            </li>
+            <li>
+              <a href="/cadastro" class="nav-link" data-route="cadastro"
+                >Participe</a
+              >
+            </li>
+          </ul>
+        </nav>
+
+        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu">
+          <span class="hamburger-icon"></span>
+        </button>
+      </div>
+    </header>
+
+    <main id="app-root"></main>
+
+    <footer class="main-footer">
+      <div class="container">
+        <p>&copy; 2025 Sonora Missão Musical. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
